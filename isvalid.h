@@ -20,4 +20,6 @@ bool isValid(int **sudoku);
 
 bool isSol (int **sudoku);
 
+bool isValhere(int **sudoku, int i, int j);
+
 #endif

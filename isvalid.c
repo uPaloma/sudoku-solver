@@ -141,4 +141,22 @@ bool isSol (int **sudoku){
 }
 
 
+ bool isValhere(int **sudoku, int i, int j){
+    bool Valid = false;
+    int x = 0;
+    int y = 0;
+    if(i > 2 && i < 6)
+    x = 3;
+    if(j > 2 && j < 6)
+    y = 3;
+    if(i > 5)
+    x = 6;
+    if(j > 5)
+    y = 6;
 
+    if(row_is_Valid(sudoku, i) && column_is_Valid(sudoku, j) && box_is_Valid(sudoku, x, y))
+    Valid = true;
+
+    return Valid;
+
+}
