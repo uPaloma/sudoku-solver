@@ -51,7 +51,7 @@ bool has_duplicate_column (int **sudoku, int i){
 bool column_is_Valid(int **sudoku, int i){
     bool Valid = true;
     for (int cnt = 0; cnt < 9; cnt++){
-        if(sudoku [cnt] [i] < 0 || sudoku [cnt] [i] > 9 || has_duplicate_row(sudoku, i) == true){
+        if(sudoku [cnt] [i] < 0 || sudoku [cnt] [i] > 9 || has_duplicate_column(sudoku, i) == true){
         Valid = false;
         }
     }
@@ -61,7 +61,7 @@ bool column_is_Valid(int **sudoku, int i){
 bool column_is_Sol(int **sudoku, int i){
     bool Valid = true;
     for (int cnt = 0; cnt < 9; cnt++){
-        if(sudoku [cnt] [i] < 1 || sudoku [cnt] [i] > 9 || has_duplicate_row(sudoku, i) == true)
+        if(sudoku [cnt] [i] < 1 || sudoku [cnt] [i] > 9 || has_duplicate_column(sudoku, i) == true)
         Valid = false;
     }
     return Valid;

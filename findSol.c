@@ -5,11 +5,11 @@
 //Backtracking brute force approach to solve with some minor tweaks for runtime improvement
 
 typedef struct list { // storing "coordintates" of the fixed values
-    unsigned short x;
-    unsigned short y;
+    unsigned int x;
+    unsigned int y;
 } fixedVal;
 
- unsigned short numVals = 0; //Index
+unsigned int numVals = 0; //Index
 
 void *_init_fixedVal(int **sudoku){
     numVals = 0;
@@ -28,7 +28,7 @@ void *_init_fixedVal(int **sudoku){
 
 bool isfixedVal (fixedVal *Vallist,int i, int j){
     bool tf = false;
-    for(int cnt = 0;cnt <= numVals; cnt++){
+    for(int cnt = 0;cnt < numVals; cnt++){
         if(Vallist[cnt].x == i && Vallist[cnt].y == j)
         tf = true;
     }
@@ -43,6 +43,7 @@ void print_sudoku(int **sudoku){
             printf("\n");
         }
     }
+    printf("\n");
 }
 
 void *findSol(int **sudoku){
@@ -51,13 +52,13 @@ void *findSol(int **sudoku){
     for(int cnt = 0; cnt < 9; cnt++){
         for(int cnt2 = 0; cnt2 < 9; cnt2++){
             if(!isfixedVal(Vallist, cnt, cnt2)){
-                //printf("%d", sudoku[cnt][cnt2]);
+                //print_sudoku(sudoku);
                 sudoku[cnt][cnt2]++;
                 while(!isValhere(sudoku, cnt, cnt2)){
                     sudoku[cnt][cnt2]++;
                     //printf("%d\n", sudoku[cnt][cnt2]);
                     if(sudoku[cnt][cnt2] > 9){
-                        sudoku[cnt][cnt2] = 1;
+                        sudoku[cnt][cnt2] = 0;
                         do{
                         if(cnt2 != 0){
                             cnt2--;
@@ -86,7 +87,7 @@ void *findSol(int **sudoku){
 
 
 int main(){
-   /*static int sudokuez[9][9] = {{5,3,4,  0,7,8,  0,1,2},
+    /*int sudokuez[9][9] = {{0,3,4,  0,7,8,  0,1,2},
                           {6,7,2,  1,9,5,  3,4,8},
                           {0,9,8,  0,4,2,  5,6,7},
 
@@ -98,7 +99,7 @@ int main(){
                           {2,8,0,  0,1,9,  0,3,5},
                           {3,4,5,  2,8,0,  1,7,9}}; */
                  
-  int sudoku[9][9] = {   {0,6,0,  0, 0, 7,  0 ,0 ,0},
+ int sudoku[9][9] = {   {0,6,0,  0, 0, 7,  0 ,0 ,0},
                           {1,0,0,  0, 8, 0,  0, 0 ,4},
                           {0,0,0,  9, 1, 0,  0, 0, 0},
 
@@ -117,7 +118,7 @@ int main(){
     
 fixedVal *val = _init_fixedVal(sudokuptr);
 
-if(isValid(sudokuptr) && isfixedVal(val, 0, 0) && column_is_Valid(sudokuptr, 0)){
+if(isValhere(sudokuptr,0, 5) && isfixedVal(val, 0, 0) && column_is_Valid(sudokuptr, 0)){
 printf("Yes\n");
 }
 else
@@ -127,5 +128,5 @@ else
 
 findSol(sudokuptr);
 //print_sudoku(sudokuptr);
-//printf("%u, %u\n", val[17].x, val[17].y);
+printf("%u, %u\n", val[0].x, val[0].y);
 }
