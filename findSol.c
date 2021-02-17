@@ -1,5 +1,5 @@
 #include "isvalid.h"
-#include "findsol.h"
+#include "findSol.h"
 
 
 //Backtracking brute force approach to solve with some minor tweaks for runtime improvement
