@@ -59,7 +59,11 @@ void *findSol(int **sudoku){
                     if(sudoku[cnt][cnt2] > 9){
                         sudoku[cnt][cnt2] = 0;
                         do{
-                        if(cnt2 != 0){
+                        if(cnt == 0 && cnt2 == 0){
+                            fprintf(stderr,"This Sudoku has no Solution\n");
+                            exit(EXIT_FAILURE);
+                        }
+                        else if(cnt2 != 0){
                             cnt2--;
                         }
                         else{
@@ -80,8 +84,3 @@ void *findSol(int **sudoku){
     }
     return sudoku;
 }
-
-
-
-
-
