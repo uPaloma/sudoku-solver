@@ -49,13 +49,10 @@ void *findSol(int **sudoku){
     for(int cnt = 0; cnt < 9; cnt++){
         for(int cnt2 = 0; cnt2 < 9; cnt2++){
             if(!isfixedVal(Vallist, cnt, cnt2)){
-                printf("%lld\n", x);
                 x++;
-                //print_sudoku(sudoku);
                 sudoku[cnt][cnt2]++;
                 while(!isValhere(sudoku, cnt, cnt2)){
                     sudoku[cnt][cnt2]++;
-                    //printf("%d\n", sudoku[cnt][cnt2]);
                     if(sudoku[cnt][cnt2] > 9){
                         sudoku[cnt][cnt2] = 0;
                         do{
@@ -77,6 +74,7 @@ void *findSol(int **sudoku){
             }
         }
     }
+    printf("%lld\n\n", x);
     print_sudoku(sudoku);
     }
     else{
@@ -84,3 +82,4 @@ void *findSol(int **sudoku){
     }
     return sudoku;
 }
+

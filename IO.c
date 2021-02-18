@@ -14,7 +14,7 @@ int main(){
                           {0,0,8,  5,0,0,  0,1,0},
                           {0,9,0,  0,0,0,  4,0,0}}; */
                  
- int sudoku[9][9] = {     {3,6,0,  0, 0, 7,  0 ,0 ,0},
+ int sudoku[9][9] = {     {0,6,0,  0, 0, 7,  0 ,0 ,0},
                           {1,0,0,  0, 8, 0,  0, 0 ,4},
                           {0,0,0,  9, 1, 0,  0, 0, 0},
 
@@ -34,7 +34,7 @@ int main(){
 fixedVal *val = _init_fixedVal(sudokuptr);
 
 if(isValhere(sudokuptr,0, 5) && isfixedVal(val, 0, 0) && column_is_Valid(sudokuptr, 0)){
-printf("Yes\n");
+printf("Yesn\n");
 }
 else
 {
