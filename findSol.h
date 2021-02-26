@@ -9,6 +9,8 @@ typedef struct list { // storing "coordintates" of the fixed values
     unsigned int y;
 } fixedVal;
 
+enum box_row_column{box, row, column};
+
 
 void *_init_fixedVal(int **sudoku);
 
@@ -17,5 +19,9 @@ bool isfixedVal (fixedVal *Vallist,int i, int j);
 void print_sudoku(int **sudoku);
 
 void *findSol(int **sudoku);
+
+int *numbers_missing(int **sudoku, int i, int j, enum box_row_column brc, int* missing_nums);
+
+void *deductice_nums(int **sudoku);
 
 #endif

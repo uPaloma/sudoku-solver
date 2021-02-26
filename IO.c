@@ -2,6 +2,13 @@
 #include "findSol.h"
 
 int main(){
+FILE *fp = fopen("sudoku.txt", "r+");
+
+if(fp != NULL)
+return EXIT_FAILURE;
+else
+printf("sudoku.txt succesfully opened!");
+
   /*int sudokuez[9][9] = {{8,0,0,  0,0,0,  0,0,0},
                           {0,0,3,  6,0,0,  0,0,0},
                           {0,7,0,  0,9,0,  2,0,0},
@@ -40,7 +47,7 @@ else
 {
     printf("haha no\n");
 }
-
+//deductice_nums(sudokuptr);
 findSol(sudokuptr);
 //print_sudoku(sudokuptr);
 //printf("%u, %u\n", val[0].x, val[0].y);
