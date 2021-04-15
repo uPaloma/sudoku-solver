@@ -66,7 +66,7 @@ void read_sudoku_txt(int** sudoku, FILE *fp){
 void interface(int** sudoku, FILE *fp){
   char input;
   printf("Please press Y/y and enter after you've entered the sudoku and N/n to "
-         "discard and end the programm\n");
+         "discard and end the programm. IMPORTANT: Dont forget to save the sudoku.txt file after you've entered the sudoku. You might have to reopen the *.txt file to see the solved sudoku there.\n");
   scanf(" %c", &input);
   if (input == 'Y' || input == 'y') {
     read_sudoku_txt(sudoku, fp);
@@ -88,7 +88,7 @@ void interface(int** sudoku, FILE *fp){
 
 void repeat_until_closed(int** sudoku, FILE *fp){
     char input;
-  printf("Do you want to solve another sudoku? Press Y/y to continue and enter N/n  to end the program\n");
+  printf("Do you want to solve another sudoku? Press Y/y to continue and enter N/n  to end the program. NOTE: You might wanna reopen the sudoku.txt file in order to have the original template\n");
   scanf(" %c", &input);
      
 
@@ -114,9 +114,9 @@ int main() {
   // first messages and interface
   printf("sudoku-solver v.1.0\nMade by Benedict Volz\nWelcome to the "
          "sudoku-solver! Please enter the sudoku in the given Text file or "
-         "generate a new one.\nImportant Note: Please only change the number "
+         "generate a new one.It will appear in whichever directory you have the program saved.\nImportant Note: Please only change the number "
          "Values in the sudoku.txt file as it can lead to bugs."
-         "0s are blank spaces in the sudoku so change it to the appropriate values\nHave fun!\n");
+         "0s are blank spaces in the sudoku so change it to the appropriate values.\nHave fun!\n");
   
   // file opening and IO stream
   int sudoku[9][9] = {{0}}; //initialize sudoku array
