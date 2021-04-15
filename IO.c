@@ -1,54 +1,142 @@
-#include "isvalid.h"
 #include "findSol.h"
+#include "isvalid.h"
+#include <ctype.h>
 
-int main(){
-FILE *fp = fopen("sudoku.txt", "r+");
+void exit_program(){
+  printf("Ending program...\n");
+  exit(EXIT_SUCCESS);
+}
 
-if(fp != NULL)
-return EXIT_FAILURE;
-else
-printf("sudoku.txt succesfully opened!");
-
-  /*int sudokuez[9][9] = {{8,0,0,  0,0,0,  0,0,0},
-                          {0,0,3,  6,0,0,  0,0,0},
-                          {0,7,0,  0,9,0,  2,0,0},
-
-                          {0,5,0,  0,0,7,  0,0,0},
-                          {0,0,0,  0,4,5,  7,0,0},
-                          {0,0,0,  1,0,0,  0,3,0},
-
-                          {0,0,1,  0,0,0,  0,6,8},
-                          {0,0,8,  5,0,0,  0,1,0},
-                          {0,9,0,  0,0,0,  4,0,0}}; */
-                 
- int sudoku[9][9] = {     {0,6,0,  0, 0, 7,  0 ,0 ,0},
-                          {1,0,0,  0, 8, 0,  0, 0 ,4},
-                          {0,0,0,  9, 1, 0,  0, 0, 0},
-
-                          {0,0,0,  0, 0, 0,  0, 0, 0},
-                          {0,0,0,  3, 0, 0,  0, 2, 6},
-                          {4,7,0,  0, 0, 6,  8, 0, 0},
-
-                          {6,0,5,  0, 0, 2,  4, 7, 0},
-                          {0,0,0,  0, 0, 8,  1, 0, 0},
-                          {0,0,9,  0, 0, 0,  0, 3, 0}}; 
-   int *sudokuptr[9];
-
-    for (int i = 0; i < 9; ++i) {
-         sudokuptr[i] = sudoku[i];
+void print_to_txt(int **sudoku, FILE *fp){ //prinnt the solved sudoku to the .txt file
+  for (int cnt = 0; cnt < 9; cnt++) {
+    for (int cnt2 = 0; cnt2 < 9; cnt2++) {
+      if(cnt2 == 3 || cnt2 == 6 ){
+        fprintf(fp,"| ");
+      }
+      fprintf(fp,"%d ", sudoku[cnt][cnt2]);
+      if (cnt2 == 8)
+        fprintf(fp,"\n");
+      if((cnt == 2 && cnt2 == 8) || (cnt == 5 && cnt2 == 8)){
+        fprintf(fp,"---------------------\n");
+      }
     }
-    
-fixedVal *val = _init_fixedVal(sudokuptr);
+  }
+  fprintf(fp,"\n");
 
-if(isValhere(sudokuptr,0, 5) && isfixedVal(val, 0, 0) && column_is_Valid(sudokuptr, 0)){
-printf("Yesn\n");
 }
-else
-{
-    printf("haha no\n");
+
+void init_sudoku_template(FILE *fp){
+  fp = fopen("sudoku.txt", "w"); //setup template file for sudoku
+  fputs("0 0 0 | 0 0 0 | 0 0 0\n0 0 0 | 0 0 0 | 0 0 0\n0 0 0 | 0 0 0 | 0 0 "
+        "0\n---------------------\n0 0 0 | 0 0 0 | 0 0 0\n0 0 0 | 0 0 0 | 0 0 "
+        "0\n0 0 0 | 0 0 0 | 0 0 0\n---------------------\n0 0 0 | 0 0 0 | 0 0 "
+        "0\n0 0 0 | 0 0 0 | 0 0 0\n0 0 0 | 0 0 0 | 0 0 0\n",
+        fp);
+  fclose(fp);
+
 }
-//deductice_nums(sudokuptr);
-findSol(sudokuptr);
-//print_sudoku(sudokuptr);
-//printf("%u, %u\n", val[0].x, val[0].y);
+
+void read_sudoku_txt(int** sudoku, FILE *fp){
+  int counter = 0;
+  char buffer[1000];
+
+  fp = fopen("sudoku.txt", "r+"); //initialization of the read file and sudoku array
+    while (fgets(buffer, 1000, fp) != NULL) {
+      if (*buffer == '-') {
+        continue;
+      }
+      int counter2 = 0;
+      for (int cnt = 0; cnt < 1001; cnt++) {
+        if (isdigit(buffer[cnt])) {
+          sudoku[counter][counter2] = buffer[cnt] - '0';
+          counter2++;
+          if (counter2 == 9) {
+            break;
+          }
+        }
+      }
+      counter++;
+    }
+
+    printf("\n\n");
+
+    fclose(fp);
+}
+
+void interface(int** sudoku, FILE *fp){
+  char input;
+  printf("Please press Y/y and enter after you've entered the sudoku and N/n to "
+         "discard and end the programm\n");
+  scanf(" %c", &input);
+  if (input == 'Y' || input == 'y') {
+    read_sudoku_txt(sudoku, fp);
+    findSol(sudoku);
+    fp = fopen("sudoku.txt", "w");
+    print_to_txt(sudoku,fp);
+    fclose(fp);
+    printf("\n");
+}else if(input == 'N' || input == 'n'){
+    exit_program();
+    }
+     else{
+        printf("Couldn't read input...Please make sure to only write one character");
+        interface(sudoku,fp);
+     }
+  }
+
+
+
+void repeat_until_closed(int** sudoku, FILE *fp){
+    char input;
+  printf("Do you want to solve another sudoku? Press Y/y to continue and enter N/n  to end the program\n");
+  scanf(" %c", &input);
+     
+
+  if (input == 'Y' || input == 'y'){
+    init_sudoku_template(fp);
+    interface(sudoku,fp);
+    repeat_until_closed(sudoku,fp);
+    }
+    else if(input == 'N' || input == 'n'){
+    exit_program();
+    }
+    else{
+        printf("Couldn't read input...Please make sure to only write one character");
+        repeat_until_closed(sudoku,fp);
+    }
+         
+
+}
+
+
+int main() {
+  FILE *fp = NULL;
+  // first messages and interface
+  printf("sudoku-solver v.1.0\nMade by Benedict Volz\nWelcome to the "
+         "sudoku-solver! Please enter the sudoku in the given Text file or "
+         "generate a new one.\nImportant Note: Please only change the number "
+         "Values in the sudoku.txt file as it can lead to bugs."
+         "0s are blank spaces in the sudoku so change it to the appropriate values\nHave fun!\n");
+  
+  // file opening and IO stream
+  int sudoku[9][9] = {{0}}; //initialize sudoku array
+
+ 
+
+  int *sudokuptr[9];
+
+  for (int i = 0; i < 9; ++i) { //init pointer to sudoku
+    sudokuptr[i] = sudoku[i];
+  }
+
+  init_sudoku_template(fp);
+  interface(sudokuptr,fp);
+  repeat_until_closed(sudokuptr,fp);
+
+  return EXIT_FAILURE;
+
+
+
+ 
+  
 }
