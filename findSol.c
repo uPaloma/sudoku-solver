@@ -5,7 +5,6 @@
 // improvement Runtime improved by finding numbers deductively Possibly more
 // tweaks added in future by statistical analysis of sudoku.
 
-//*todo* fix mem leaks
 
 unsigned int numVals = 0; // Index
 long long int x = 0;
@@ -112,7 +111,7 @@ void print_sudoku(int **sudoku) {
   printf("\n");
 }
 
-void *backtrackSol(int **sudoku) { // cant solve a sudoku and segg faults????
+void *backtrackSol(int **sudoku) { 
   fixedVal *Vallist = _init_fixedVal(sudoku);
   if (isValid(sudoku)) { // to not attempt to solve insolvable sudokus
     for (int cnt = 0; cnt < 9; cnt++) { // for loop to go through sudoku (9*9)
