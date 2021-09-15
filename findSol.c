@@ -7,9 +7,8 @@
 
 
 unsigned int numVals = 0; // Index
-long long int x = 0;
 
-void *numbers_missing(int **sudoku, int i, int j) {
+int *numbers_missing(int **sudoku, int i, int j) {
   int *missing_nums = calloc(9, 9 * sizeof(int));
   int fakesudoku[9][9];
   int *fakesudokuptr[9];
@@ -117,7 +116,6 @@ void *backtrackSol(int **sudoku) {
     for (int cnt = 0; cnt < 9; cnt++) { // for loop to go through sudoku (9*9)
       for (int cnt2 = 0; cnt2 < 9; cnt2++) {
         if (!isfixedVal(Vallist, cnt, cnt2)) {
-          x++;
           sudoku[cnt][cnt2]++;
           while (!isValhere(sudoku, cnt, cnt2)) {
             sudoku[cnt][cnt2]++;
@@ -140,7 +138,6 @@ void *backtrackSol(int **sudoku) {
         }
       }
     }
-    printf("%lld\n\n", x);
     print_sudoku(sudoku);
   } else {
     printf("This puzzle is not Valid. Please enter a Valid puzzle to solve!");

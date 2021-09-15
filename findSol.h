@@ -3,6 +3,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include "isvalid.h"
+#include<string.h>
 
 typedef struct list { // storing "coordintates" of the fixed values
     unsigned int x;
@@ -20,7 +21,7 @@ void print_sudoku(int **sudoku);
 
 void *findSol(int **sudoku);
 
-int *numbers_missing(int **sudoku, int i, int j, enum box_row_column brc, int* missing_nums);
+int *numbers_missing(int **sudoku, int i, int j);
 
 void *deductice_nums(int **sudoku);
 
