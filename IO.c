@@ -112,7 +112,7 @@ void repeat_until_closed(int** sudoku, FILE *fp){
 int main() {
   FILE *fp = NULL;
   // first messages and interface
-  printf("sudoku-solver v.1.0\nMade by Benedict Volz\nWelcome to the "
+  printf("sudoku-solver v.1.1\nMade by Benedict Volz\nWelcome to the "
          "sudoku-solver! Please enter the sudoku in the given Text file or "
          "generate a new one.It will appear in whichever directory you have the program saved.\nImportant Note: Please only change the number "
          "Values in the sudoku.txt file as it can lead to bugs."
