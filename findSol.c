@@ -5,7 +5,6 @@
 // improvement Runtime improved by finding numbers deductively Possibly more
 // tweaks added in future by statistical analysis of sudoku.
 
-
 unsigned int numVals = 0; // Index
 
 int *numbers_missing(int **sudoku, int i, int j) {
@@ -110,29 +109,31 @@ void print_sudoku(int **sudoku) {
   printf("\n");
 }
 
-void *backtrackSol(int **sudoku) { 
+void *backtrackSol(int **sudoku) {
   fixedVal *Vallist = _init_fixedVal(sudoku);
   if (isValid(sudoku)) { // to not attempt to solve insolvable sudokus
     for (int cnt = 0; cnt < 9; cnt++) { // for loop to go through sudoku (9*9)
       for (int cnt2 = 0; cnt2 < 9; cnt2++) {
         if (!isfixedVal(Vallist, cnt, cnt2)) {
           sudoku[cnt][cnt2]++;
+          //If increment doesnt turn out to be a valid number we increment further in the while loop
           while (!isValhere(sudoku, cnt, cnt2)) {
             sudoku[cnt][cnt2]++;
             if (sudoku[cnt][cnt2] > 9) {
               sudoku[cnt][cnt2] = 0;
+              //if no number was valid in this spot we go back to the last not fixed val
               do {
                 if (cnt == 0 && cnt2 == 0) {
                   fprintf(stderr, "This Sudoku has no Solution\n");
                   return NULL;
                 } else if (cnt2 != 0) {
                   cnt2--;
-                } else {
+                } else if (cnt2 == 0) {
                   cnt--;
                   cnt2 = 8;
                 }
               } while (isfixedVal(Vallist, cnt, cnt2));
-              cnt2--; // because for loop cnt2++
+              cnt2--;// to prevent infinite loop
             }
           }
         }

@@ -46,7 +46,7 @@ void read_sudoku_txt(int** sudoku, FILE *fp){
         continue;
       }
       int counter2 = 0;
-      for (int cnt = 0; cnt < 1001; cnt++) {
+      for (int cnt = 0; cnt < 300; cnt++) {
         if (isdigit(buffer[cnt])) {
           sudoku[counter][counter2] = buffer[cnt] - '0';
           counter2++;
@@ -56,6 +56,9 @@ void read_sudoku_txt(int** sudoku, FILE *fp){
         }
       }
       counter++;
+      if(counter == 9){
+        break;
+      }
     }
 
     printf("\n\n");
