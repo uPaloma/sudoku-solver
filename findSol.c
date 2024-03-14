@@ -31,6 +31,9 @@ int *numbers_missing(int **sudoku, int i, int j) {
 }
 
 void *deductice_nums(int **sudoku) {
+  if(isValhere(sudoku,4,3)){
+    
+  
   fixedVal *Vallist = _init_fixedVal(
       sudoku); // list of values that are != 0 so they shouldnt be changed
   int *nums_missing = malloc(9 * sizeof(int));
@@ -70,7 +73,7 @@ void *deductice_nums(int **sudoku) {
     }
   }
   printf("deductive numbers found: %d\n", num_added_cnt);
-  print_sudoku(sudoku);
+  print_sudoku(sudoku);}
   return sudoku;
 }
 
@@ -136,10 +139,10 @@ void *backtrackSol(int **sudoku) {
               cnt2--;// to prevent infinite loop
             }
           }
+          
         }
       }
     }
-    print_sudoku(sudoku);
   } else {
     printf("This puzzle is not Valid. Please enter a Valid puzzle to solve!");
   }
